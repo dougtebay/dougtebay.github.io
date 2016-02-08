@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: School | Do You Trust This Computer?]]></title>
+  <link href="http://dougtebay.github.io/blog/categories/school/atom.xml" rel="self"/>
+  <link href="http://dougtebay.github.io/"/>
+  <updated>2016-02-07T20:47:36-05:00</updated>
+  <id>http://dougtebay.github.io/</id>
+  <author>
+    <name><![CDATA[Doug Tebay]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[They Call It the "Pretzel Colon" (Unfortunately)]]></title>
+    <link href="http://dougtebay.github.io/blog/2016/02/07/they-call-it-the-pretzel-colon-unfortunately/"/>
+    <updated>2016-02-07T20:38:10-05:00</updated>
+    <id>http://dougtebay.github.io/blog/2016/02/07/they-call-it-the-pretzel-colon-unfortunately</id>
+    <content type="html"><![CDATA[<p>Isn&rsquo;t Ruby great? Just look at this code:</p></p>
+
+<script src="//repl.it/embed/Bk8h/1.js"></script>
+
+
+<p>So clear. So readable. Much elegance!</p>
+
+
+<p>When I showed this snippet to my wife, who knows nothing about programming, she understood it immediately. See, it's all about <a href="https://www.ruby-lang.org/en/about/" target="_blank">Matz's philosophy</a> — his belief that a language should be simple in appearance, yet powerful.</p>
+
+
+<p>Let's take a look at another example. This one returns the factorial of a number:</p>
+
+
+<script src="//repl.it/embed/Bk8k/2.js"></script>
+
+
+<p>Wait, what? <code>inject(&:*)</code>? How does that even work?</p>
+
+
+<p>As every new Rubyist learns, there are many ways to go about solving a problem in Ruby, and some of the most economical solutions can appear the most cryptic.</p>
+
+
+<p>Here's a more verbose take on the same method:</p>
+
+
+<script src="//repl.it/embed/Bk9Z/2.js"></script>
+
+
+<p>So how do we get from this to <code>inject(&:*)</code>? Let's start with the <code>inject</code> method. Like <code>each</code>, <code>inject</code> traverses a collection. It calls on the block it’s been given once for each element in the collection.</p>
+
+
+<p>Unlike <code>each</code>, <code>inject</code> passes an “accumulator value” to the block with each call. This value can be specified as an argument to inject (e.g. <code>inject(1)</code>). If no argument is given, however, the accumulator will default to the value of the first element in the collection. That is, the accumulator for <code>[3, 2, 1].inject</code> would default to <code>3</code>. The return value of <code>inject</code> is the value of the accumulator.</p>
+
+
+<p>"That's all well and good," you might say, "but what can <code>inject</code> do for me?" Well, if your goal is to find out the factorial of <code>4</code> by returning the product of <code>1..4</code>, <code>inject</code> can save you the trouble of initializing and returning the product outside of the block</code> (lines 1 and 5 in the example above).</p>
+
+
+<p>Let's see this in action by refactoring our code:</p>
+
+
+<script src="//repl.it/embed/Bk9s/1.js"></script>
+
+
+<p>Nice! But now what about <code>(&:*)</code>? What we have here are two separate things: a method disguised as an ampersand (<code>&</code>) and a symbol (<code>:*</code>). In this context, <code>&</code> is equivalent to calling <code>.to_proc</code> on the symbol. A proc, remember, is basically a block that's been turned into an object — an instance of the class <code>Proc</code>. As an object, the proc can be passed around and reused.</p>
+
+
+<script src="//repl.it/embed/Bkbd/0.js"></script>
+
+
+<p>As you can see, calling <code>my_proc</code> with an argument of two numbers multiplies the numbers. And passing <code>my_proc</code> as an argument to inject works just like <code>&:*</code>!</p>
+
+
+<p>And this is just the beginning of all the awsome stuff you can do with procs and lambdas! To learn more about these topics check out the following:</p>
+
+
+<p><a href="http://ablogaboutcode.com/2012/01/04/the-ampersand-operator-in-ruby/" target="_blank">The &amp; Operator in Ruby</a><br>
+<a href="http://vaidehijoshi.github.io/blog/2015/06/02/code-smells-and-ruby-shorthand-unpacking-ampersand-plus-to-proc/" target="_blank">Code Smells and Ruby Shorthand: Unpacking Ampersand + To_proc</a><br>
+<a href="http://www.skorks.com/2010/05/ruby-procs-and-lambdas-and-the-difference-between-them/" target="_blank">Ruby Procs And Lambdas (And The Difference Between Them)</a></p>
+]]></content>
+  </entry>
+  
+</feed>
